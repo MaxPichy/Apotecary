@@ -25,8 +25,8 @@ const sequelizeOptions: Options = {
 };
 
 export const sequelize = new Sequelize(
-  process.env.DB_NAME || 'postgres',
-  process.env.DB_User || 'postgres',
+  process.env.DB_NAME || 'apotecary',
+  process.env.DB_User || 'camila_machado',
   process.env.DB_PASSWORD || '',
   sequelizeOptions,
 );
