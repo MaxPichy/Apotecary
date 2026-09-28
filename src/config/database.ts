@@ -34,4 +34,4 @@ export const sequelize = new Sequelize(
 sequelize
   .authenticate()
   .then(() => console.log('DB conectado com sucesso'))
-  .catch((err) => console.error('Conexão com DB falhou', err.message));
+  .catch((err) => console.error('Conexão com DB falhou. \n', err.message));
