@@ -9,4 +9,4 @@ router.post('/', IngredientController.create);
 router.put('/:id', IngredientController.update);
 router.delete('/:id', IngredientController.delete);
 
-export { router as ingredientRoutes };
+export { router as IngredientRoutes };
