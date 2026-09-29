@@ -77,6 +77,13 @@ export class IngredientController {
         return res.status(400).json({ error: 'Nome inválido.' });
       }
 
+      const name_in_use = await Ingredient.findOne({
+        where: { name: name.trim() },
+      });
+      if (name_in_use) {
+        return res.status(400).json({ error: 'Ingrediente já existe.' });
+      }
+
       // Tratativa preço
       if (!price) {
         return res.status(400).json({ error: 'O campo preço é obrigatório.' });
@@ -112,7 +119,7 @@ export class IngredientController {
         price: Number(price.toFixed(2)),
         stock: stock,
         description: description.trim(),
-        expiration: expiration.trim(),
+        expiration: expiration,
       });
 
       return res.status(201).json(ingredient);
