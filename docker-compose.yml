@@ -3,15 +3,15 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: apothecary
+      POSTGRES_PASSWORD: apothecary_local
+      POSTGRES_DB: apothecary
     ports:
-      - '5432:5432'
+      - '5433:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ${DB_USER} -d ${DB_NAME}']
+      test: ['CMD-SHELL', 'pg_isready -U apothecary -d apothecary']
       interval: 5s
       timeout: 5s
       retries: 5
@@ -20,14 +20,14 @@ services:
     build: .
     restart: unless-stopped
     ports:
-      - '${PORT}:${PORT}'
+      - '3000:3000'
     environment:
-      PORT: ${PORT}
+      PORT: 3000
       DB_HOST: db
       DB_PORT: 5432
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${DB_NAME}
+      DB_USER: apothecary
+      DB_PASSWORD: apothecary_local
+      DB_NAME: apothecary
       DB_SSL: 'false'
     depends_on:
       db:
