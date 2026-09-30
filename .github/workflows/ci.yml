@@ -1,0 +1,49 @@
+name: Apotecary CI
+
+on:
+  # Disparagens automáticas dos testes ao -> commit && pull request
+  push:
+    branches: 
+        - main
+  pull_request:
+    branches: 
+        - main
+  # Disparagem manual pelo Github Actions
+  workflow_dispatch:
+
+# Permite cancelar execuções anteriores nas branches caso hajam novos commits
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+
+    # Fast-Fail
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Build
+        run: pnpm build
