@@ -1,4 +1,6 @@
 import { IngredientRoutes } from './routes/IngredientRoutes';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger';
 import { Request, Response } from 'express';
 import express from 'express';
 import cors from 'cors';
@@ -18,5 +20,8 @@ app.get('/health', (req: Request, res: Response) => {
     message: 'Servidor rodando com sucesso.',
   });
 });
+
+// Documentação swagger
+app.use('/api-docs', ...swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export { app };
