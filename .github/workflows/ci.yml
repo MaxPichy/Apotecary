@@ -3,11 +3,11 @@ name: Apotecary CI
 on:
   # Disparagens automáticas dos testes ao -> commit && pull request
   push:
-    branches: 
-        - main
+    branches:
+      - main
   pull_request:
-    branches: 
-        - main
+    branches:
+      - main
   # Disparagem manual pelo Github Actions
   workflow_dispatch:
 
@@ -41,6 +41,9 @@ jobs:
 
       - name: Lint
         run: pnpm lint
+
+      - name: Prettier
+        run: pnpm format
 
       - name: Typecheck
         run: pnpm typecheck
