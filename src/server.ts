@@ -13,6 +13,7 @@ async function main() {
 
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Servidor rodando em http://localhost:${PORT}`);
+      console.log(`Documentação Swagger disponível em: http://localhost:${PORT}/api-docs`);
       console.log(`Health Check disponível em: http://localhost:${PORT}/health`);
     });
   } catch (error: unknown) {
